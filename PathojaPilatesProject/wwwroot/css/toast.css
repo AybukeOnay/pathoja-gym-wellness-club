@@ -1,0 +1,78 @@
+.custom-toast-container {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.custom-toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 280px;
+    max-width: 400px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    animation: slideIn 0.5s ease, fadeOut 0.5s ease 3.5s forwards;
+}
+.custom-toast.success {
+    background-color: #c94f2b;
+}
+/* senin tema turuncu */
+.custom-toast.warning {
+    background-color: #f0ad4e;
+}
+/* sarýmtýrak uyarý */
+.custom-toast.error {
+    background-color: #d9534f;
+}
+/* kýrmýzý hata */
+
+/* Ýkon */
+.custom-toast i {
+    font-size: 18px;
+}
+
+.error-icon {
+    position: absolute;
+    right: 8px;
+    top: 38px; /* input yüksekliðine göre ayarlanýr */
+    color: #C65D3D; /* Tema rengi */
+    cursor: pointer;
+    font-size: 1rem;
+    /*transform: translateY(-50%);*/
+}
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+    background-image: none !important;
+    padding-right: .75rem; /* sað boþluðu normale çek */
+}
+
+.form-control.is-invalid {
+    border-color: #C65D3D !important; /* tema turuncu-kahverengi */
+    box-shadow: none !important; /* istersen yumuþak gölge de ekleyebilirsin */
+    /* box-shadow: 0 0 0 .2rem rgba(198,93,61,.15) !important; */
+}
+
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}

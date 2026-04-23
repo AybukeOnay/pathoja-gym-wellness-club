@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Pathoja Pilates";
+    Layout = "~/Views/Shared/_MainWebSiteLayout.cshtml";
+}
+
+@section HeroSection {
+    @await Html.PartialAsync("PartialHeroSection")
+}
+
+@section WhyUs {
+    @await Html.PartialAsync("PartialWhyUs")
+}
+
+@section Service {
+    @await Html.PartialAsync("PartialService")
+}
+
+@section Testimonial {
+    @await Html.PartialAsync("PartialMemberTestimonials")
+}
+
+

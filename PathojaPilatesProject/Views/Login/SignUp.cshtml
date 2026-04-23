@@ -1,0 +1,106 @@
+﻿@model PathojaPilatesProject.Models.WebSite.Register.SignUpVM
+
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_MainWebSiteLayout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/WebSite/User/SignUpPage.css" />
+}
+
+
+<div class="signup-page">
+    <div class="signup-container">
+        <div class="signup-left">
+            <h2 style="text-align:center">Üye Ol</h2>
+            <form asp-action="SignUp" method="post">
+                <div class="form-group position-relative mb-3">
+                    <label for="FirstName">Ad</label>
+                    <input asp-for="FirstName" class="form-control @(ViewData.ModelState[nameof(Model.FirstName)]?.Errors.Count > 0 ? "is-invalid" : "")" placeholder="Adınız" />
+
+                    @if (ViewData.ModelState[nameof(Model.FirstName)]?.Errors.Count > 0)
+                    {
+                        <span class="error-icon" 
+                        data-bs-toggle="tooltip"
+                              title="@ViewData.ModelState[nameof(Model.FirstName)].Errors[0].ErrorMessage">
+                            ❗
+                    </span>
+                    }
+                </div>
+@*                 <div class="form-group">
+                    <label for="FirstName">Adınız</label>
+                    <input type="text" class="form-control" placeholder="Adınız" asp-for="FirstName" />
+                    <span asp-validation-for="FirstName" class="invalid-feedback"></span>
+                </div> *@
+
+                <div class="form-group position-relative mb-3">
+                    <label for="LastName">Soyad</label>
+                    <input asp-for="LastName" class="form-control @(ViewData.ModelState[nameof(Model.LastName)]?.Errors.Count > 0 ? "is-invalid" : "")" placeholder="Soyadınız" />                   
+                    @if (ViewData.ModelState[nameof(Model.LastName)]?.Errors.Count > 0)
+                    {
+                        <span class="error-icon"
+                              data-bs-toggle="tooltip"
+                              title="@ViewData.ModelState[nameof(Model.LastName)].Errors[0].ErrorMessage">
+                            ❗             
+                        </span>
+                    }
+                    @* <span asp-validation-for="LastName" class="text-danger"></span> *@
+                </div>
+
+                <div class="form-group position-relative mb-3">
+                    <label for="Email">E-mail</label>
+                    <input asp-for="Email" type="text" class="form-control @(ViewData.ModelState[nameof(Model.Email)]?.Errors.Count > 0 ? "is-invalid" : "")" placeholder="E-mail" />
+                    @if (ViewData.ModelState["Email"]?.Errors.Count > 0)
+                    {
+                        <span class="error-icon"
+                              data-bs-toggle="tooltip"
+                              title="@ViewData.ModelState["Email"].Errors[0].ErrorMessage">
+                            ❗
+                        </span>
+                    }
+                    @* <span asp-validation-for="Email" class="text-danger"></span> *@
+                </div>
+
+                <div class="form-group position-relative mb-3 password-wrapper">
+                    <label for="password">Şifre</label>
+                    <input type="password" id="password" asp-for="Password" class="form-control @(ViewData.ModelState[nameof(Model.Password)]?.Errors.Count > 0 ? "is-invalid" : "")" placeholder="Şifre">
+                    <span class="toggle-password" id="togglePassword">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    @if (ViewData.ModelState[nameof(Model.Password)]?.Errors.Count > 0)
+                    {
+                        <span class="error-icon"
+                              data-bs-toggle="tooltip"
+                              title="@ViewData.ModelState[nameof(Model.Password)].Errors[0].ErrorMessage">
+                            ❗
+                        </span>
+                    }
+                    @* <span asp-validation-for="Password" class="text-danger"></span> *@
+                </div>
+
+                <div class="form-group position-relative mb-3 password-wrapper">
+                    <label for="confirmPassword">Şifre (Tekrar)</label>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Şifre (Tekrar)">
+                    <span class="toggle-password" id="toggleConfirmPassword">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                </div>
+
+                <button type="submit" class="btn-signup">Üye Ol</button>
+                <p class="signup-text">
+                    Zaten hesabınız var mı? <a asp-action="Login">Giriş Yap</a>
+                </p>
+            </form>
+        </div>
+        <div class="signup-right">
+            @* <img src="~/images/pilates_img.jpg" alt="Signup Image" /> *@
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/WebSite/User/SignUpPage.js"></script>
+}
+
+

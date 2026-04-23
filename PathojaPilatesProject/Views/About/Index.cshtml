@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Hakkımızda";
+    Layout = "~/Views/Shared/_MainWebSiteLayout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/WebSite/About/AboutPage.css" />
+}
+
+<section class="about-hero">
+    <div class="container">
+        <h2 class="about-hero__title">Neden Pathoja?</h2>
+        <p class="about-hero__desc">
+            Kişiye özel programlar, uzman eğitmenler ve bütünsel bir wellness yaklaşımıyla;
+            hedeflerinize güvenli, etkili ve sürdürülebilir bir şekilde ulaşmanız için buradayız.
+        </p>
+    </div>
+</section>
+
+<section class="about-content container">
+    <!-- 1. Satır -->
+    <div class="about-row">
+        <div class="about-col reveal-left">
+            <h3 class="about-title">Misyonumuz</h3>
+
+            <p class="about-text">
+                Pathoja Pilates ve Pathoja Wellness Club olarak; pilates, fitness ve seçkin stüdyo
+                derslerini tek bir bütüncül deneyimde buluşturuyoruz. Her bireyin ihtiyacına,
+                seviyesine ve hedeflerine göre şekillenen programlarımızı; uzman eğitmen kadromuz,
+                bilimsel yaklaşımımız ve samimi stüdyo kültürümüzle destekliyoruz.
+            </p>
+
+            <p class="about-text">
+                Amacımız, üyelerimizin yalnızca fiziksel olarak değil; beden-zihin dengesi, yaşam
+                kalitesi ve sürdürülebilir iyi olma hali açısından da güçlenmesini sağlamak.
+                Pathoja’da hareket, sadece egzersiz değil; kişinin kendine yeniden bağ kurduğu
+                özel bir yolculuktur.
+            </p>
+
+@*             <div class="about-highlights">
+                <span class="about-chip">Kişiye özel programlar</span>
+                <span class="about-chip">Uzman eğitmen kadrosu</span>
+                <span class="about-chip">Bütüncül wellness yaklaşımı</span>
+            </div> *@
+        </div>
+
+        <div class="about-col about-image reveal-right">
+            <img src="~/images/about/missionsImage.jpg" alt="Misyonumuz - Pathoja">
+        </div>
+    </div>
+    
+    <!-- 2. Satır -->
+    <div class="about-row">
+        <div class="about-col about-image reveal-left">
+            <img src="~/images/about/vizyon.png" alt="Vizyonumuz - Pathoja" />
+        </div>
+        <div class="about-col reveal-right">
+            <h3 class="about-title">Vizyonumuz</h3>
+            <p class="about-text">
+                Hareketi geçici bir trend olarak değil; estetik, bilim ve yüksek deneyim anlayışıyla
+                şekillenen sürdürülebilir bir yaşam standardı olarak ele alıyoruz. Pathoja’nın vizyonu,
+                wellness kavramına ilham veren, güven veren ve fark yaratan öncü bir referans noktası olmaktır.
+            </p>
+        </div>
+    </div>
+
+    <!-- 3. Satır -->
+    <div class="about-row">
+        <div class="about-col reveal-left">
+            <h3 class="about-title">Değerlerimiz</h3>
+            <ul class="about-list">
+                <li>Güvenlik ve doğru form</li>
+                <li>Samimiyet ve aidiyet</li>
+                <li>Bilimsel yaklaşım ve sürdürülebilir gelişim</li>
+                <li>Şeffaf iletişim</li>
+            </ul>
+        </div>
+        <div class="about-col about-image reveal-right">
+            <img src="~/images/About/values.png" alt="Değerlerimiz - Pathoja Pilates" />
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/WebSite/About/AboutPage.js"></script>
+}

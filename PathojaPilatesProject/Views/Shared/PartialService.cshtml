@@ -1,0 +1,68 @@
+﻿<section id="services" class="services-section">
+    <div class="container py-5 py-md-6">
+
+        <div class="services-head text-center">
+            <p class="services-kicker">Pathoja Dünyası</p>
+            <h2 class="services-title">Pathoja’da Neler Var?</h2>
+            <p class="services-sub">
+                Pilates’ten fitness’a, yoga’dan dansa uzanan çok branşlı yapımızla;
+                hareketi, gücü, dengeyi ve iyi yaşamı tek çatı altında buluşturuyoruz.
+            </p>
+        </div>
+
+        <div class="services-orbit">
+            <ul class="services-list services-list-left">
+                <li>
+                    <a asp-controller="Category" asp-action="Index" asp-route-cat="pilates" class="service-link-title">
+                        Pilates –
+                    </a>
+                    <span>Core gücü, denge, esneklik ve kontrollü hareket odaklı çalışmalar.</span>
+                </li>
+                <li>
+                    <a asp-controller="Category" asp-action="Index" asp-route-cat="fitness" class="service-link-title">
+                       Fitness –
+                    </a>
+                    <span>güç, kondisyon ve performansı destekleyen fonksiyonel antrenman deneyimi.</span>
+                </li>
+                <li>
+                    <a asp-controller="Category" asp-action="Index" asp-route-cat="yoga" class="service-link-title">
+                        Yoga –
+                    </a>
+                    <span>nefes, akış ve zihin-beden dengesini güçlendiren pratikler.</span>
+                </li>
+            </ul>
+
+            <div class="services-center">
+                <div class="services-image-wrap">
+                    <img src="~/images/Hero_Section/ozgeDikey.webp"
+                         alt="Pathoja Wellness Club branşları">
+                </div>
+            </div>
+
+            <ul class="services-list services-list-right">
+                <li>
+                    <a asp-controller="Category" asp-action="Index" asp-route-cat="crossfit" class="service-link-title">
+                        Crossfit –
+                    </a>
+                    <span>dayanıklılık, enerji ve fonksiyonel güç isteyen yoğun antrenman yapıları.</span>
+                </li>
+                <li>
+                    <a asp-controller="Category" asp-action="Index" asp-route-cat="dans" class="service-link-title">
+                        Dans –
+                    </a>
+                    <span>ritim, koordinasyon ve hareket özgürlüğünü destekleyen dinamik dersler.</span>
+                </li>
+                <li>
+                    <a asp-controller="Category" asp-action="Index" asp-route-cat="padel-tenis" class="service-link-title">
+                        Padel Tenis –
+                    </a>
+                    <span>sosyal, aktif ve keyifli kulüp deneyimini tamamlayan raket sporu alanı.</span>
+                </li>
+               @*  <li>
+                    <strong>Padel Tenis</strong> – sosyal, aktif ve keyifli kulüp deneyimini tamamlayan raket sporu alanı.
+                </li> *@
+            </ul>
+        </div>
+
+    </div>
+</section>

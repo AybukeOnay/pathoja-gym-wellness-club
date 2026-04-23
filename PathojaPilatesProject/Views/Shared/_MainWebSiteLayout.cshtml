@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathoja GYM & Wellness Club</title>
+    @* <link rel="icon" type="image/png" sizes="16x16" href="~/images/favicon-16x16.png"> *@
+    <link rel="icon" type="image/png" sizes="32x32" href="~/images/favicon-32x32.png">
+    @* <link rel="shortcut icon" href="~/favicon.ico"> *@
+    @* <link rel="icon" type="image/png" href="~/images/Pathoja_Logo-28.ico" /> *@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/css/toast.css" />
+    <link href="~/css/WebSite/MainWebSite.css" rel="stylesheet">
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Header Menü -->
+        @await Html.PartialAsync("PartialNavbar")
+
+        <main class="content">
+            @RenderBody()
+        </main>
+
+        <!-- Hero / Slider -->
+        @RenderSection("HeroSection", required: false)
+        
+        <!-- Neden Biz -->
+        @RenderSection("WhyUs", required: false)
+
+        <!-- Hizmetlerimiz -->
+        @RenderSection("Service", required: false)
+
+        <!-- Üye Yorumları -->
+        @RenderSection("Testimonial", required: false)
+
+        <a href="https://wa.me/905387799627?text=Merhaba%2C%20%C3%BCyelik%20hakk%C4%B1nda%20bilgi%20alabilir%20miyim%3F"
+           class="whatsapp-float"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="WhatsApp ile bize yazın">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <!-- Footer -->
+        @await Html.PartialAsync("PartialFooter")
+
+        <button type="button"
+                id="scrollTopBtn"
+                class="scroll-top-btn"
+                aria-label="Sayfanın en üstüne çık">
+            <i class="bi bi-arrow-up"></i>
+        </button>
+    </div>
+
+    <script src="~/js/WebSite/MainWebSite.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/toast.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            var successMessage = '@(TempData["SuccessMessage"] ?? "")';
+            if (successMessage && successMessage.trim() !== "") {
+                showToast(successMessage, "success");
+            }
+        });
+    </script>
+    @RenderSection("Modals", required: false)
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

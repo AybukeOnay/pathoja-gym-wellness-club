@@ -1,0 +1,111 @@
+﻿@using BusinessLayer.Abstract
+
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+
+    Func<string, bool> isCtrl = ctrl =>
+        string.Equals(currentController, ctrl, StringComparison.OrdinalIgnoreCase);
+
+    var isAuth = User?.Identity?.IsAuthenticated ?? false;
+    var isAdmin = User?.IsInRole("Admin") ?? false;
+    var isTeach = User?.IsInRole("Teacher") ?? false;
+    var isMember = User?.IsInRole("Member") ?? false;
+}
+
+<nav class="navbar navbar-expand-lg main-navbar sticky-top">
+    <div class="container navbar-3col">
+
+        <!-- SOL: LOGO -->
+        <a class="navbar-brand brand-navbar" asp-controller="Home" asp-action="Index">
+            <img src="~/images/logo_nav_white.png" class="brand-logo d-none d-md-block" alt="Pathoja Wellness Club" />
+
+            <span class="brand-mobile-wrap d-flex d-md-none align-items-center">
+                <img src="~/images/logo_mark_white.png" class="brand-logo brand-logo--mark" alt="Pathoja" />
+
+                <span class="brand-mobile-text">
+                    <span class="brand-mobile-title">Pathoja</span>
+                    <span class="brand-mobile-sub">GYM &amp; Wellness Club</span>
+                </span>
+            </span>
+        </a>
+
+        <!-- MOBIL MENU BUTONU -->
+        <button class="navbar-toggler custom-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Menüyü aç / kapat">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- ORTA: MENÜ -->
+        <div class="collapse navbar-collapse navbar-center" id="navbarNav">
+            <ul class="navbar-nav main-nav">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-main @(isCtrl("Home") ? "active" : "")" href="/Home/Index">Ana Sayfa</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link nav-link-main @(isCtrl("About") ? "active" : "")" href="/About/Index">Hakkımızda</a>
+                </li>
+
+                @await Component.InvokeAsync("NavbarCategory")
+
+                <li class="nav-item">
+                    <a class="nav-link nav-link-main @(isCtrl("Teacher") ? "active" : "")" href="/Teacher/ListTeacher">Ekibimiz</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link nav-link-main @(isCtrl("Contact") ? "active" : "")" href="/Contact/Index">İletişim</a>
+                </li>
+
+                <!-- MOBILDE AUTH ALANI MENÜNÜN İÇİNE -->
+                <li class="nav-item nav-item-mobile-auth d-lg-none">
+                    @if (!isAuth)
+                    {
+                        <div class="mobile-auth-links">
+                            <a class="nav-link nav-link-main" asp-controller="Login" asp-action="Login">Giriş Yap</a>
+                            <a class="nav-link nav-link-main" asp-controller="Login" asp-action="SignUp">Üye Ol</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a class="nav-link nav-link-main @(isCtrl("Profile") ? "active" : "")"
+                           asp-controller="Profile" asp-action="Index">
+                            Profilim
+                        </a>
+                    }
+                </li>
+            </ul>
+        </div>
+
+        <!-- SAĞ: USER (SADECE DESKTOP) -->
+        <div class="navbar-right d-none d-lg-flex">
+            @if (!isAuth)
+            {
+                <div class="dropdown nav-item-user">
+                    <a class="nav-link nav-link-main user-toggle" href="#"
+                       id="userMenu" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person"></i>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end user-dropdown" aria-labelledby="userMenu">
+                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Giriş Yap</a></li>
+                        <li><a class="dropdown-item" asp-controller="Login" asp-action="SignUp">Üye Ol</a></li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <a class="nav-link nav-link-main @(isCtrl("Profile") ? "active" : "")"
+                   asp-controller="Profile" asp-action="Index">
+                    Profilim
+                </a>
+            }
+        </div>
+
+    </div>
+</nav>

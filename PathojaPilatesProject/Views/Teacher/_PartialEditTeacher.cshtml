@@ -1,0 +1,84 @@
+﻿@using PathojaPilatesProject.Models.Teacher
+@model TeacherEditVM
+
+<div class="sidepanel-header">
+    <h3>Öğretmen Bilgilerini Düzenle</h3>
+    <span class="sidepanel-close" onclick="closeSidePanel('editTeacherPanel')">&times;</span>
+</div>
+
+<form asp-action="EditTeacher" asp-controller="Teacher" id="editTeacherForm" method="post">
+    <input asp-for="Id" hidden />
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Adı</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="LastName" class="form-label">Soyadı</label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Mail" class="form-label">E-posta:</label>
+        <input asp-for="Mail" class="form-control" />
+        <span asp-validation-for="Mail" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form-label"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+@*     <div class="mb-3">
+        <label class="form-label">Kategoriler</label>
+        <select asp-for="CategoryIds" asp-items="ViewBag.Categories" multiple class="form-control"></select>
+        <span asp-validation-for="CategoryIds" class="text-danger"></span>
+    </div> *@
+    @* <div class="mb-3">
+        <label class="form-label">Kategoriler</label>
+        <div>
+            @foreach (var category in (List<SelectListItem>)ViewBag.Categories)
+            {
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="CategoryIds"
+                           value="@category.Value"
+                    @(category.Selected ? "checked" : "") />
+                    <label class="form-check-label">@category.Text</label>
+                </div>
+            }
+        </div>
+    </div> *@
+    <div class="mb-3">
+        <label class="form-label">Kategoriler</label>
+        <select id="CategoryIds" name="CategoryIds" multiple="multiple"
+                asp-for="CategoryIds"
+                asp-items="@(ViewBag.Categories as IEnumerable<SelectListItem>)"
+                class="form-control select2">
+        </select>
+        <span asp-validation-for="CategoryIds" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Branşlar</label>
+        <select id="BranchIds" name="BranchIds" multiple="multiple"
+                asp-for="BranchIds"
+                asp-items="@(ViewBag.Branches as IEnumerable<SelectListItem>)"
+                class="form-control select2">
+        </select>
+        <span asp-validation-for="BranchIds" class="text-danger"></span>
+    </div>
+
+@*     <div class="mb-3">
+        <label class="form-label">Branşlar</label>
+        <select asp-for="BranchIds" asp-items="ViewBag.Branches" multiple class="form-control"></select>
+        <span asp-validation-for="BranchIds" class="text-danger"></span>
+    </div> *@
+    <button type="submit" class="btn btn-sm" id="btn-save"><i class="fa fa-save"></i>Kaydet</button>
+    <a asp-action="Index" class="btn btn-sm" id="btn-cancel" style="margin-right:8px;"><i class="fa fa-undo"></i>İptal</a>
+</form>

@@ -1,0 +1,48 @@
+﻿@model List<PathojaPilatesProject.Models.WebSite.Navbar.NavbarCategoryVM>
+
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var isCategory = string.Equals(currentController, "Category", StringComparison.OrdinalIgnoreCase);
+}
+
+<li class="nav-item nav-item-main nav-item-services @(isCategory ? "is-current" : "")">
+    <a class="nav-link nav-link-main @(isCategory ? "active" : "")"
+       href="/Category/Index"
+       id="servicesMenu">
+        Hizmetlerimiz
+    </a>
+
+    @if (Model?.Any() == true)
+    {
+        <ul class="services-dropdown">
+            @foreach (var parent in Model)
+            {
+                var hasChildren = parent.Children?.Any() == true;
+
+                <li class="services-item-wrap @(hasChildren ? "has-children" : "")">
+                    <a href="/Category?cat=@parent.Slug" class="services-item">
+                        <span>@parent.Name</span>
+                        @if (hasChildren)
+                        {
+                            <span class="services-arrow">›</span>
+                        }
+                    </a>
+
+                    @if (hasChildren)
+                    {
+                        <ul class="services-submenu">
+                            @foreach (var child in parent.Children)
+                            {
+                                <li>
+                                    <a href="/Category?cat=@child.Slug" class="services-subitem">
+                                        @child.Name
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+        </ul>
+    }
+</li>

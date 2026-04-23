@@ -1,0 +1,95 @@
+.form-title {
+    text-align: center; /* Ortaya alýr */
+    font-size: 26px; /* Daha büyük baþlýk */
+    font-weight: bold;
+    margin-bottom: 15px;
+    position: relative;
+    color: #333; /* Yazý rengi */
+}
+
+.form-title::after {
+    content: "";
+    display: block;
+    width: 180px; /* Çizgi geniþliði */
+    height: 3px; /* Çizgi kalýnlýðý */
+    background: linear-gradient(to right, #d0603b, #f2a65a); /* Turuncu tonlu gradient */
+    margin: 8px auto 0; /* Ortaya al ve boþluk býrak */
+    border-radius: 2px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.chip-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px; /* chipler arasýnda boþluk */
+    margin-top: 5px;
+    margin-bottom: 6px;
+}
+
+.tag-item {
+    background: #fbe4d8;
+    color: #d0603b;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center; /* dikey ortalama */
+    justify-content: center; /* yatay ortalama */
+    gap: 4px; /* yazý ve X arasýnda boþluk */
+    font-size: 14px;
+    line-height: 1; /* yazýyý dikeyde ortalar */
+    min-width: 70px; /* çok kýsa yazýlarda ortalama korunsun */
+    text-align: center;
+}
+
+.tag-item .remove {
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: #333;
+    line-height: 1;
+}
+
+.tag-item .remove:hover {
+    color: #d0603b;
+}
+
+#BranchIds option:hover,
+#CategoryIds option:hover {
+    background-color: #fbe4d8; /* senin paletinden açýk turuncu */
+    color: #d0603b; /* turuncu metin */
+    cursor: pointer;
+}
+
+/* Seçili durumda arka plan */
+#BranchIds option:checked,
+#CategoryIds option:checked {
+    background-color: #d0603b;
+    color: white;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #d0603b;
+    font-size: 14px;
+    display: none;
+}
+
+.toggle-password.visible {
+    display: block;
+}
+
+
+

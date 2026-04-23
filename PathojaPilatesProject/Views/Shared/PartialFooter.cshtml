@@ -1,0 +1,81 @@
+﻿<footer class="footer">
+    <div class="container">
+        <div class="row">
+
+            <!-- Logo ve kısa info -->
+            <div class="col-md-3 footer-logo">
+                <img src="~/images/logo_nav_white.png"
+                     alt="Pathoja Wellness Club"
+                     class="footer-logo-img" />
+            </div>
+
+            <!-- Menü linkleri -->
+            <div class="col-md-3 footer-links">
+                <h5>Menü</h5>
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+                    <li><a asp-controller="About" asp-action="Index">Hakkımızda</a></li>
+                    <li><a asp-controller="Category" asp-action="Index">Hizmetlerimiz</a></li>
+                    <li><a asp-controller="Teacher" asp-action="ListTeacher">Eğitmenlerimiz</a></li>
+                    <li><a asp-controller="Gallery" asp-action="Index">Galeri</a></li>
+                    <li><a asp-controller="Contact" asp-action="Index">İletişim</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 footer-contact">
+                <h5>İletişim</h5>
+
+                <p>
+                    <i class="bi bi-telephone"></i>
+                    <a class="footer-link" href="tel:+905387799627">538 779 96 27</a>
+                </p>
+
+                <p>
+                    <i class="bi bi-envelope"></i>
+                    <a class="footer-link" href="mailto:contact@pathoja.com">contact@pathoja.com</a>
+                </p>
+
+                <p>
+                    <i class="bi bi-geo-alt"></i>
+                    <a class="footer-link" target="_blank" rel="noopener"
+                       href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x14d33f8ed63bd39d:0x53a95210c805b48?sa=X&ved=1t:8290&ictx=111">
+                        Pathoja - Alacaatlı 
+                    </a>
+                </p>
+
+                <p>
+                    <i class="bi bi-geo-alt"></i>
+                    <a class="footer-link" target="_blank" rel="noopener"
+                       href="https://www.google.com/maps/search/?api=1&query=Pathoja%20Pilates%20Studio%20%C4%B0ncek%2C%201002.%20Sk.%2021A%2C%2006830%20G%C3%B6lba%C5%9F%C4%B1%2FAnkara">
+                        Pathoja - İncek
+                    </a>
+                </p>
+
+                <p>
+                    <i class="bi bi-geo-alt"></i>
+                    <a class="footer-link" target="_blank" rel="noopener"
+                       href="https://maps.app.goo.gl/nt38eFp5MadXMrxA9">
+                        Pathoja Wellness Club
+                    </a>
+                </p>
+            </div>
+
+
+            <!-- Sosyal medya -->
+            <div class="col-md-3 footer-social">
+                <h5>Bizi Takip Edin</h5>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/pathoja_/" target="_blank"><i class="bi bi-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61552284632391&locale=tr_TR" target="_blank"><i class="bi bi-facebook"></i></a>
+                    @* <a href="#"><i class="bi bi-twitter-x"></i></a> *@
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Telif hakkı -->
+        <div class="footer-bottom text-center mt-4">
+            <p>© @DateTime.Now.Year Pathoja GYM & Wellness Club | Tüm Hakları Saklıdır</p>
+        </div>
+    </div>
+</footer>

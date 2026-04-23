@@ -1,0 +1,103 @@
+:root {
+    --brand: #c04f2d;
+    --brand-deep: #a0462e;
+    --bg: #fff;
+    --soft: #f7efe9;
+    --text: #1f1f1f;
+}
+
+.profile-wrap {
+    padding: 32px 0;
+}
+
+.profile-sidebar {
+    position: sticky;
+    top: 88px;
+}
+
+.profile-card {
+    background: var(--bg);
+    border: 0;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+
+/* Sol menü */
+
+.nav-vertical .nav-link,
+.nav-vertical form .nav-link {
+    border: 1px solid transparent;
+    transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.nav-vertical .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    color: #333;
+}
+
+.nav-vertical .nav-link i {
+    width: 22px;
+    text-align: center;
+}
+
+.nav-vertical .nav-link.active {
+    background: linear-gradient(180deg, rgba(192,79,45,.14), rgba(192,79,45,.22));
+    color: #000;
+    font-weight: 600;
+    border: 1px solid rgba(192,79,45,.25);
+}
+
+.nav-vertical .nav-link:not(.active):hover,
+.nav-vertical form .nav-link:not(.active):hover {
+    background: linear-gradient(180deg, rgba(192,79,45,.14), rgba(192,79,45,.22));
+    color: #000;
+    border-color: rgba(192,79,45,.25);
+}
+
+/* Sað alan */
+.tab-pane .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+.btn-brand {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: #fff;
+}
+
+    .btn-brand:hover {
+        background: var(--brand-deep);
+        border-color: var(--brand-deep);
+        color: #fff;
+    }
+
+.badge-soft {
+    background: var(--soft);
+    color: #000;
+}
+
+.avatar-lg {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 6px 16px rgba(0,0,0,.12)
+}
+
+@media (max-width: 991px) {
+    .profile-sidebar {
+        position: static;
+        margin-bottom: 16px;
+    }
+}

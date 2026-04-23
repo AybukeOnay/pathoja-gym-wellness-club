@@ -1,0 +1,270 @@
+﻿@{
+    ViewData["Title"] = "Galeri";
+    Layout = "~/Views/Shared/_MainWebSiteLayout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/WebSite/Gallery/GalleryPage.css"/>
+}
+
+<section class="gallery-hero">
+    <div class="container">
+        <div class="gallery-hero-inner">
+            <div>
+                <h1 class="gallery-title">Galeri</h1>
+                <p class="gallery-sub">
+                    Şubelerimizi ve ders ortamlarımızı keşfedin. Hizmetlere göre filtreleyerek hızlıca göz atabilirsiniz.
+                </p>
+            </div>
+
+            <div class="gallery-hero-badge">
+                <i class="bi bi-images"></i>
+                <span>Pathoja Moments</span>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="gallery-filters">
+            <div class="filter-group">
+                <div class="filter-label"><i class="bi bi-geo-alt"></i> Şube</div>
+                <div class="chips" id="branchChips">
+                    <button class="chip active" type="button" data-branch="all">Tüm Şubeler</button>
+                    <button class="chip" type="button" data-branch="alacaatli">Pilates - Alacaatlı</button>
+                    <button class="chip" type="button" data-branch="incek">Pilates - İncek</button>
+                    <button class="chip" type="button" data-branch="wellness">Wellness Club</button>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-label"><i class="bi bi-lightning-charge"></i> Hizmet</div>
+                <div class="chips" id="serviceChips">
+                    <button class="chip active" type="button" data-service="all">Tümü</button>
+                    <button class="chip" type="button" data-service="pilates">Pilates</button>
+                    <button class="chip" type="button" data-service="yuzme">Yüzme</button>
+                    <button class="chip" type="button" data-service="boks">Boks</button>
+                    <button class="chip" type="button" data-service="crossfit">Crossfit</button>
+                    <button class="chip" type="button" data-service="hamile">Hamile Pilates</button>
+                </div>
+            </div>
+
+            <div class="filter-meta">
+                <span class="count-pill"><span id="visibleCount">0</span> fotoğraf</span>
+                <button class="btn btn-sm btn-outline-light reset-btn" id="resetFilters" type="button">
+                    <i class="bi bi-arrow-counterclockwise"></i> Sıfırla
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gallery-section">
+    <div class="container">
+        <div class="gallery-grid" id="galleryGrid">
+
+            <!-- CARD 1 -->
+            <button class="gcard" type="button"
+                    data-branch="alacaatli" data-service="pilates"
+                    data-bs-toggle="modal" data-bs-target="#galleryLightbox"
+                    data-img="/images/gallery/alacaatli-1.jpg"
+                    data-title="Pilates - Alacaatlı"
+                    data-desc="Reformer dersi – stüdyo içi.">
+                <div class="gimg">
+                    <img src="/images/gallery/alacaatli-1.jpg" alt="Pilates Alacaatlı 1" loading="lazy" />
+                </div>
+                <div class="gmeta">
+                    <div class="gtags">
+                        <span class="tag">Alacaatlı</span>
+                        <span class="tag">Pilates</span>
+                    </div>
+                    <div class="gtitle">Reformer Studio</div>
+                </div>
+            </button>
+
+            <!-- CARD 2 -->
+            <button class="gcard" type="button"
+                    data-branch="alacaatli" data-service="hamile"
+                    data-bs-toggle="modal" data-bs-target="#galleryLightbox"
+                    data-img="/images/gallery/alacaatli-2.jpg"
+                    data-title="Hamile Pilates"
+                    data-desc="Güvenli egzersiz alanı – birebir yönlendirme.">
+                <div class="gimg">
+                    <img src="/images/gallery/alacaatli-2.jpg" alt="Alacaatlı 2" loading="lazy" />
+                </div>
+                <div class="gmeta">
+                    <div class="gtags">
+                        <span class="tag">Alacaatlı</span>
+                        <span class="tag">Hamile Pilates</span>
+                    </div>
+                    <div class="gtitle">Hamile Pilates</div>
+                </div>
+            </button>
+
+            <!-- CARD 3 -->
+            <button class="gcard" type="button"
+                    data-branch="incek" data-service="pilates"
+                    data-bs-toggle="modal" data-bs-target="#galleryLightbox"
+                    data-img="/images/gallery/incek-1.jpg"
+                    data-title="Pilates - İncek"
+                    data-desc="Stüdyo genel görünüm.">
+                <div class="gimg">
+                    <img src="/images/gallery/incek-1.jpg" alt="İncek 1" loading="lazy" />
+                </div>
+                <div class="gmeta">
+                    <div class="gtags">
+                        <span class="tag">İncek</span>
+                        <span class="tag">Pilates</span>
+                    </div>
+                    <div class="gtitle">Studio Vibes</div>
+                </div>
+            </button>
+
+            <!-- CARD 4 -->
+            <button class="gcard" type="button"
+                    data-branch="incek" data-service="boks"
+                    data-bs-toggle="modal" data-bs-target="#galleryLightbox"
+                    data-img="/images/gallery/incek-2.jpg"
+                    data-title="Boks"
+                    data-desc="Boks antrenmanı – kondisyon & teknik.">
+                <div class="gimg">
+                    <img src="/images/gallery/incek-2.jpg" alt="İncek 2" loading="lazy" />
+                </div>
+                <div class="gmeta">
+                    <div class="gtags">
+                        <span class="tag">İncek</span>
+                        <span class="tag">Boks</span>
+                    </div>
+                    <div class="gtitle">Box Training</div>
+                </div>
+            </button>
+
+            <!-- CARD 5 -->
+            <button class="gcard" type="button"
+                    data-branch="wellness" data-service="yuzme"
+                    data-bs-toggle="modal" data-bs-target="#galleryLightbox"
+                    data-img="/images/gallery/wellness-1.jpg"
+                    data-title="Yüzme"
+                    data-desc="Havuz alanı – ders saatleriyle uyumlu.">
+                <div class="gimg">
+                    <img src="/images/gallery/wellness-1.jpg" alt="Wellness 1" loading="lazy" />
+                </div>
+                <div class="gmeta">
+                    <div class="gtags">
+                        <span class="tag">Wellness</span>
+                        <span class="tag">Yüzme</span>
+                    </div>
+                    <div class="gtitle">Pool Area</div>
+                </div>
+            </button>
+
+            <!-- CARD 6 -->
+            <button class="gcard" type="button"
+                    data-branch="wellness" data-service="crossfit"
+                    data-bs-toggle="modal" data-bs-target="#galleryLightbox"
+                    data-img="/images/gallery/wellness-2.jpg"
+                    data-title="Crossfit"
+                    data-desc="Fonksiyonel antrenman alanı.">
+                <div class="gimg">
+                    <img src="/images/gallery/wellness-2.jpg" alt="Wellness 2" loading="lazy" />
+                </div>
+                <div class="gmeta">
+                    <div class="gtags">
+                        <span class="tag">Wellness</span>
+                        <span class="tag">Crossfit</span>
+                    </div>
+                    <div class="gtitle">Functional Zone</div>
+                </div>
+            </button>
+
+        </div>
+
+        <div class="gallery-empty d-none" id="galleryEmpty">
+            <div class="empty-card">
+                <i class="bi bi-search"></i>
+                <div class="empty-title">Sonuç bulunamadı</div>
+                <div class="empty-sub">Filtreleri değiştirip tekrar deneyin.</div>
+                <button class="btn btn-light mt-2" type="button" id="emptyReset">
+                    Filtreleri Sıfırla
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div class="modal fade" id="galleryLightbox" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content glightbox">
+            <div class="modal-header border-0">
+                <div>
+                    <h5 class="modal-title" id="glTitle">Başlık</h5>
+                    <p class="glSub" id="glDesc">Açıklama</p>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="glWrap">
+                    <img id="glImg" src="" alt="Gallery image" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<section class="gallery-section">
+    <div class="container">
+        <div class="gallery-grid" id="galleryGrid">
+            @* @foreach (var it in items)
+            {
+                <button type="button"
+                        class="gallery-card"
+                        data-branch="@it.Branch"
+                        data-service="@it.Service"
+                        data-bs-toggle="modal"
+                        data-bs-target="#galleryModal"
+                        data-src="@Url.Content(it.Src)"
+                        data-title="@it.Title">
+
+                    <div class="gallery-img-wrap">
+                        <img src="@Url.Content(it.Src)" alt="@it.Title" loading="lazy" />
+                        <div class="gallery-badges">
+                            <span class="badge-pill">@branches.First(x => x.Id == it.Branch).Name</span>
+                            <span class="badge-pill outline">@services.First(x => x.Id == it.Service).Name</span>
+                        </div>
+                    </div>
+
+                    <div class="gallery-card-body">
+                        <div class="gallery-card-title">@it.Title</div>
+                        <div class="gallery-card-sub">Detay için tıklayın</div>
+                    </div>
+                </button>
+            } *@
+        </div>
+
+        <div class="gallery-empty d-none" id="galleryEmpty">
+            Seçtiğiniz filtreye uygun görsel bulunamadı.
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content gallery-modal">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="galleryModalTitle">Görsel</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body pt-0">
+                <img id="galleryModalImg" class="w-100 rounded-4" alt="Galeri Görseli" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/WebSite/Gallery/GalleryPage.js"></script>
+}

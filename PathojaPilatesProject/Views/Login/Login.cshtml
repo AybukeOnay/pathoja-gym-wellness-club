@@ -1,0 +1,69 @@
+﻿@model PathojaPilatesProject.Models.WebSite.Register.LoginVM
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_MainWebSiteLayout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/WebSite/User/SignUpPage.css" />
+}
+
+<div class="signup-page">
+    <div class="signup-container">
+        <div class="signup-left">
+            <h2 style="text-align:center">Giriş Yap</h2>
+            <form asp-action="Login" asp-controller="Login" method="post">
+                <div class="form-group position-relative mb-3">
+                    <label for="Email">E-mail</label>
+                    <input asp-for="Email" type="text" class="form-control @(ViewData.ModelState[nameof(Model.Email)]?.Errors.Count > 0 ? "is-invalid" : "")" placeholder="E-mail" />
+                    @* @if (ViewData.ModelState["Email"]?.Errors.Count > 0)
+                    {
+                        <span class="error-icon"
+                              data-bs-toggle="tooltip"
+                              title="@ViewData.ModelState["Email"].Errors[0].ErrorMessage">
+                            ❗
+                        </span>
+                    } *@
+                </div>
+
+                <div class="form-group position-relative mb-3 password-wrapper">
+                    <label for="password">Şifre</label>
+                    <input type="password" id="password" asp-for="Password" class="form-control @(ViewData.ModelState[nameof(Model.Password)]?.Errors.Count > 0 ? "is-invalid" : "")" placeholder="Şifre">
+                    <span class="toggle-password" id="togglePassword">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    @* @if (ViewData.ModelState[nameof(Model.Password)]?.Errors.Count > 0)
+                    {
+                        <span class="error-icon"
+                              data-bs-toggle="tooltip"
+                              title="@ViewData.ModelState[nameof(Model.Password)].Errors[0].ErrorMessage">
+                            ❗
+                        </span>
+                    } *@
+                    @* <span asp-validation-for="Password" class="text-danger"></span> *@
+                </div>
+
+                <div class="form-group d-flex justify-content-between align-items-center mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="RememberMe" name="RememberMe" />
+                        <label class="form-check-label" for="RememberMe">
+                            Beni Hatırla
+                        </label>
+                    </div>
+                    <a href="/Login/ForgotPassword" class="forgot-password-link">Şifremi Unuttum?</a>
+                </div>
+                <button type="submit" class="btn-signup">Giriş</button>
+            </form>
+        </div>
+        <div class="signup-right">
+            @* <img src="~/images/pilates_img.jpg" alt="Signup Image" /> *@
+        </div>
+        
+    </div>
+</div>
+
+@* @section Scripts {
+    <script src="~/js/WebSite/User/SignUpPage.js"></script>
+}
+ *@

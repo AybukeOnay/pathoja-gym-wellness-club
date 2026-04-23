@@ -1,0 +1,522 @@
+.page-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.section-divider {
+    height: 2px;
+    background-color: #ddd;
+    width: 100%;
+    margin: 0 auto 40px auto;
+}
+
+/* Kart konteyneri */
+.teacher-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 30px;
+    padding: 0 40px;
+}
+
+/* Her kart */
+.teacher-card {
+    width: 31%;
+    min-height: 180px;
+    padding: 20px 25px;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid #d0603b;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center; /* içeriði dikeyde ortalar */
+    gap: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.teacher-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 12px rgba(255, 169, 77, 0.4);
+    border-color: #d0603b;
+    cursor: pointer;
+}
+
+.teacher-card.selected {
+    border: 2px solid #d0603b;
+    box-shadow: 0 0 12px rgba(255, 169, 77, 0.4);
+    background-color: #e9967a;
+}
+
+.teacher-image img {
+    width: 80px; /* Eskiden 60px idi */
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.teacher-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.teacher-details h3 {
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.teacher-details p {
+    margin: 5px 0;
+    color: #333;
+    font-size: 14px;
+}
+
+#CategoryIds, #BranchIds {
+    display: none !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #E67E22 !important;
+    color: white !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #E67E22 !important; /* turuncu */
+    border: none !important;
+    color: #fff !important;
+    margin-top: 4px;
+    border-radius: 4px;
+    padding: 2px 6px 2px 20px; /* soldaki çarpý için boþluk */
+    position: relative;
+}
+
+/* Çarpýnýn (×) hizasýný düzelt */
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #fff !important;
+    position: absolute;
+    left:2px; /* soldan boþluk */
+    top: 50%;
+    transform: translateY(-50%); /* dikey ortalama */
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.select2-container {
+    z-index: 9999 !important;
+}
+
+/* Multiselect butonunu form-control gibi göster */
+/*.multiselect-native-select .btn {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    text-align: left;
+    width: 100%;
+    color: #495057;
+    font-size: 0.95rem;
+}*/
+
+/* Açýlan liste */
+/*.multiselect-container {
+    min-width: 100% !important;*/ /* Açýlan kutu input kadar geniþ olsun */
+    /*max-width: 100% !important;
+    overflow-y: auto;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding: 5px;
+    top: auto !important;
+    bottom: auto !important;
+    z-index: auto !important;
+    position: relative !important;*/
+   /* box-shadow: none !important;*/
+/*}*/
+
+/* Checkbox satýrlarý */
+/*.multiselect-container > li > a > label {
+    padding: 4px 10px;
+    font-weight: normal;
+}*/
+
+/* Seçili item highlight rengi */
+/*.multiselect-container > li.active > a {
+    background-color: #f8f9fa;
+    color: #212529;
+}*/
+/*.multiselect-container > li.active > a,
+.multiselect-container > li.active > a label {
+    background-color: #E67E22 !important;
+    color: #fff !important;
+}
+
+.multiselect-container > li > a:hover,
+.multiselect-container > li.active > a {
+    background-color: #E67E22 !important;*/ /* senin turuncu rengin */
+    /*color: #fff !important;
+}
+
+.multiselect-container input[type="checkbox"]:checked + label:before {
+    background-color: #E67E22 !important;
+    border-color: #E67E22 !important;
+}*/
+
+/*#editTeacherPanel .sidepanel-body input.form-control {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    color: #333;
+}*/
+
+/*.footer {
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 220px);  sidebar geniþliðine göre ayarla 
+    z-index: 1000;
+    background-color: #fff;
+    border-top: 1px solid #e7eaec;
+    padding: 10px 20px;
+}*/
+
+
+
+/*.side-panel {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 600px;
+    height: 100%;
+    background-color: #fff;
+    z-index: 1051;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+    transition: right 0.4s ease-in-out;
+}
+
+.side-panel.open {
+    right: 0;
+}
+
+.side-panel-content {
+    padding: 24px;
+    font-family: "Segoe UI", sans-serif;
+}*/
+
+
+/*#editTeacherPanelContainer h4,
+#editLessonPanelContainer h4 {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #000;
+    font-weight: bold;
+}
+
+#editTeacherPanelContainer input[type="text"],
+#editTeacherPanelContainer input[type="email"],
+#editTeacherPanelContainer input[type="number"],
+#editTeacherPanelContainer input[type="file"],
+#editTeacherPanelContainer textarea {
+    border: 1px solid #f8dcbf;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 15px;
+    color: #000;
+    width: 100%;
+    height: 45px;
+    font-family: "Segoe UI", sans-serif;
+    line-height: 1.4;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    background-color: white;
+}
+
+#editTeacherPanelContainer input:focus,
+#editTeacherPanelContainer textarea:focus {
+    border-color: #faa555;
+    outline: none;
+    box-shadow: 0 0 0 0.1rem rgba(250, 165, 85, 0.25);
+}
+
+#editTeacherPanelContainer label,
+#editLessonPanelContainer label {
+    font-weight: 600;
+    color: #000;
+    font-size: 15px;
+    margin-bottom: 6px;
+    display: inline-block;
+}
+
+#editTeacherPanelContainer .form-group {
+    margin-bottom: 20px;
+}
+
+#editLessonPanelContainer .lesson-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+#editLessonPanelContainer .custom-checkbox {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    user-select: none;
+}
+
+#editLessonPanelContainer .custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+body.panel-open {
+    overflow: hidden;
+    pointer-events: none;
+}
+
+    body.panel-open .side-panel,
+    body.panel-open #overlay-backdrop {
+        pointer-events: auto;*/ /* sadece panel aktif */
+    /*}
+
+    body.panel-open .swal2-container {
+        pointer-events: auto !important;
+        z-index: 999999 !important;
+    }
+
+.swal2-popup .swal2-title,
+.swal2-popup .swal2-html-container {
+    color: #000 !important;
+    font-weight: 600;
+}
+
+.close-button {
+    float: right;
+    font-size: 22px;
+    background: none;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+#overlay-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;*/ /* panelin hemen altýnda */
+    /*width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);*/ /* Yarý þeffaf siyah */
+    /*display: none;
+}
+
+    #overlay-backdrop.show {
+        display: block;
+    }
+
+
+#edit-teacher-form .cancel-button:hover,
+#edit-teacher-lessons-form .cancel-button:hover {
+    background-color: #ad7942;
+}
+
+#edit-teacher-form .update-btn:hover,
+#edit-teacher-lessons-form .update-btn:hover {
+    background-color: #faa555;
+    color: #fff;
+}
+
+#edit-teacher-form .update-btn.disabled {
+    background-color: #fff;
+    color: #999;
+    border: 2px solid #ccc;
+    cursor: not-allowed;
+    font-weight: normal;
+    pointer-events: none;
+}
+
+.teacher-image-preview {
+    margin-bottom: 10px;
+}
+
+    .teacher-image-preview img {
+        max-height: 100px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+    }
+
+#edit-teacher-form .cancel-button,
+#edit-teacher-form .update-btn,
+#edit-teacher-lessons-form .cancel-button,
+#edit-teacher-lessons-form .update-btn {
+    min-width: 130px;
+    height: 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
+    box-sizing: border-box;
+    padding: 10px 22px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    margin-top: 0 !important;
+    background-color: #c58f5d;
+    color: white;
+    border-color: #c58f5d;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+#edit-teacher-form .cancel-button:hover {
+    background-color: #ad7942;
+    border-color: #ad7942;
+}
+
+#edit-teacher-form .update-btn {
+    background-color: #fff;
+    color: #faa555;
+    border-color: #faa555;
+}
+
+    #edit-teacher-form .update-btn:hover {
+        background-color: #faa555;
+        color: #fff;
+    }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 8px;
+}
+
+    .pagination a {
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 6px;
+        border: 2px solid #faa555;
+        color: #faa555;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .pagination a:hover {
+            background-color: #faa555;
+            color: white;
+        }
+
+        .pagination a.active {
+            background-color: #faa555;
+            color: white;
+            pointer-events: none;
+        }
+
+.swal2-popup.custom-swal-popup {
+    font-family: inherit;
+}
+
+.custom-swal-title {
+    color: #000 !important;
+}
+
+.custom-swal-text {
+    color: #000 !important;
+}
+
+.swal2-success-custom-orange {
+    border-color: #faa555 !important;
+}
+
+    .swal2-success-custom-orange .swal2-success-ring {
+        border: 4px solid #faa555 !important;
+    }
+
+    .swal2-success-custom-orange .swal2-success-line-tip,
+    .swal2-success-custom-orange .swal2-success-line-long {
+        background-color: #faa555 !important;
+    }
+
+.custom-swal-title,
+.custom-swal-text {
+    color: #000 !important;
+}
+
+.custom-swal-button {
+    background-color: #faa555 !important;
+    color: #fff !important;
+    border: none;
+    padding: 6px 16px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.custom-swal-cancel-button {
+    background-color: #959084 !important;
+    color: #fff !important;
+    border: none;
+    padding: 6px 16px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+
+.custom-toast {
+    position: fixed;
+    top: 20px;
+    left: 80px;
+    background-color: #faa555;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    max-width: 320px;
+    min-width: 220px;
+    text-align: center;
+}
+
+    .custom-toast.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+.field-validation-error {
+    color: #faa555;
+    font-size: 14px;
+    margin-top: 2px;
+    font-weight: bold;
+}
+
+.panel-subtitle {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 20px;
+}*/

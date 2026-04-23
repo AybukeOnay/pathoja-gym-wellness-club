@@ -1,0 +1,116 @@
+﻿@using PathojaPilatesProject.Models.Teacher
+@model TeacherAddVM
+
+@{
+    ViewData["Title"] = "AddTeacher";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Admin/Teacher/TeacherAddPage.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" />
+}
+
+<h2 class="form-title">Öğretmen Ekleme Sayfası</h2>
+<br />
+<form asp-action="AddTeacher" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <!-- Ad -->
+        <div class="col-md-6 mb-3">
+            <label asp-for="Teacher.Name" class="form-label" >Adı*</label>
+            <input asp-for="Teacher.Name" class="form-control"/>
+            <span asp-validation-for="Teacher.Name" class="text-danger"></span>
+        </div>
+
+        <!-- Soyad -->
+        <div class="col-md-6 mb-3">
+            <label asp-for="Teacher.LastName" class="form-label">Soyadı*</label>
+            <input asp-for="Teacher.LastName" class="form-control" />
+            <span asp-validation-for="Teacher.LastName" class="text-danger"></span>
+        </div>
+
+        <!-- Fotoğraf -->
+        <div class="col-md-6 mb-3">
+            <label asp-for="Teacher.Image" class="form-label">Fotoğraf</label>
+            <input asp-for="Teacher.ImageFile" type="file" id="ImageFileInput" class="form-control" onchange="previewImage(event)" placeholder="" />
+            <div id="preview-container" class="mt-2" style="display:none;">
+                <img id="preview" src="#" alt="Seçilen Fotoğraf"
+                     style="max-height: 100px; border: 1px solid #ccc; padding: 2px; border-radius: 4px;" />
+                <button type="button" id="remove-btn" class="btn btn-sm btn-danger ms-2" onclick="removeImage()">Kaldır</button>
+            </div>
+            <span asp-validation-for="Teacher.ImageFile" class="text-danger"></span>
+        </div>
+
+        <!-- Telefon -->
+        <div class="col-md-6 mb-3">
+            <label asp-for="Teacher.PhoneNumber" class="form-label">Telefon Numarası</label>
+            <input asp-for="Teacher.PhoneNumber" class="form-control" placeholder="(+90)" />
+            <span asp-validation-for="Teacher.PhoneNumber" class="text-danger"></span>
+        </div>
+
+         <!-- Mail -->
+        <div class="col-md-6 mb-3">
+            <label asp-for="Teacher.Mail" class="form-label">E-posta*</label>
+            <input 
+                asp-for="Teacher.Mail" 
+                class="form-control" 
+                type="email"
+                title="Geçerli bir mail adresi giriniz (örn:deneme@gmail.com)"/>
+            <span asp-validation-for="Teacher.Mail" class="text-danger"></span>
+        </div>
+
+        <!-- Şifre -->
+@*         <div class="col-md-6 mb-3 position-relative">
+            <label asp-for="Teacher.Password" class="form-label">Şifre</label>
+            <input asp-for="Teacher.Password" class="form-control pr-5" type="password" id="passwordInput" />
+            <i id="togglePassword" class="fa fa-eye position-absolute"
+               style="right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; display: none;"></i>
+            <span asp-validation-for="Teacher.Password" class="text-danger"></span>
+        </div> *@
+        <div class="col-md-6 mb-3">
+            <label asp-for="Teacher.Password" class="form-label">Şifre</label>
+            <div class="password-wrapper">
+                <input asp-for="Teacher.Password" class="form-control" id="passwordInput" type="password" />
+                <span class="toggle-password" id="togglePassword">
+                    <i class="fas fa-eye"></i>
+                </span>
+            </div>
+            <span asp-validation-for="Teacher.Password" class="text-danger"></span>
+        </div>
+
+
+
+        <!-- kategoriler -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Kategoriler</label>
+            <div id="selectedCategories" class="chip-container" data-select-id="CategoryIds"></div>
+            <select asp-for="Teacher.CategoryIds" asp-items="Model.CategoryList" id="CategoryIds" class="form-control" multiple>
+                @* @foreach (var category in Model.CategoryList as List<SelectListItem>)
+                {
+                    <option value="@category.Value">@category.Text</option>
+                } *@
+            </select>
+            <span asp-validation-for="Teacher.CategoryIds" class="text-danger"></span>
+        </div>
+
+        <!-- Şubeler -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Şubeler</label>
+            <div id="selectedBranches" class="chip-container" data-select-id="BranchIds"></div>
+            <select asp-for="Teacher.BranchIds" asp-items="Model.BranchList" id="BranchIds" class="form-control" multiple>
+            </select>
+            <span asp-validation-for="Teacher.BranchIds" class="text-danger"></span>
+        </div>
+    </div>
+
+    <!-- Kaydet Butonu -->
+    <div class="d-flex justify-content-end gap-2 mt-3">
+        <a asp-action="Index" class="btn btn-sm" id="btn-cancel" style="margin-right:8px;"><i class="fa fa-undo"></i>İptal</a>
+        <button type="submit" class="btn btn-sm" id="btn-save"><i class="fa fa-save"></i>Kaydet</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/js/Admin/Teacher/TeacherAddPage.js"></script>
+}
+

@@ -1,0 +1,175 @@
+﻿@using System.Globalization
+@model PathojaPilatesProject.Models.Contact.ContactPageVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MainWebSiteLayout.cshtml";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/WebSite/Contact/ContactPage.css" />
+}
+
+<section class="contact-hero">
+    <div class="container">
+        <div class="contact-hero-inner">
+            <div>
+                <h1 class="contact-title">İletişim</h1>
+                <p class="contact-sub">
+                    Sorularınız ve talepleriniz için bize yazın.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+<section class="contact-wrap container">
+    <div class="contact-form">
+        <h3 class="section-title text-center">Bize Ulaşın</h3>
+
+        <form id="contactForm">
+            <div class="grid">
+                <div class="field">
+                    <label>Adınız</label>
+                    <input type="text" placeholder="Adınız">
+                </div>
+                <div class="field">
+                    <label>Soyadınız</label>
+                    <input type="text" placeholder="Soyadınız">
+                </div>
+                <div class="field">
+                    <label>E-posta</label>
+                    <input type="email" placeholder="ornek@mail.com">
+                </div>
+                <div class="field">
+                    <label>Telefon</label>
+                    <input type="tel" placeholder="(5xx) xxx xx xx">
+                </div>
+                <div class="field field-full">
+                    <label>Mesajınız</label>
+                    <textarea placeholder="Kısaca bahsedin…"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-theme">Gönder</button>
+        </form>
+    </div>
+
+    <aside class="contact-side">
+        <h3 class="section-title text-center" hidden>Bize Ulaşın</h3>
+
+        <div class="info-card">
+            <div class="icon">
+                <i class="bi bi-telephone-fill"></i>
+            </div>
+            <div class="text">
+                <h5>Telefon</h5>
+                <p>538 779 96 27</p>
+                <a class="cta" href="tel:+90 538 779 96 27">Hemen Ara</a>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="icon mail">
+                <i class="bi bi-envelope-fill"></i>
+            </div>
+            <div class="text">
+                <h5>E-posta</h5>
+                <p>contact@pathoja.com</p>
+                <a class="cta" href="mailto:contact@pathoja.com">E-posta Gönder</a>
+            </div>
+        </div>
+    </aside>
+</section>
+
+
+<section class="map-section container">
+    <ul class="branch-tabs" id="branchTabs">
+        @if (Model.Branches?.Any() == true)
+        {
+            var first = Model.Branches.First();
+
+            @foreach (var b in Model.Branches)
+            {
+                <li class="branch-tab @(b.Id == first.Id ? "active" : "")"
+                    data-id="@b.Id"
+                    data-name="@b.Name"
+                    data-address="@b.Address"
+                    data-phone="@b.PhoneNumber"
+                    data-email="@b.Email"
+                    data-maps-url="@b.GoogleMapsUrl"
+                    data-lat="@(b.Latitude.HasValue ? b.Latitude.Value.ToString(CultureInfo.InvariantCulture) : "")"
+                    data-lng="@(b.Longitude.HasValue ? b.Longitude.Value.ToString(CultureInfo.InvariantCulture) : "")">
+                    @b.Name
+                </li>
+            }
+        }
+        else
+        {
+            <li>Şube bulunamadı</li>
+        }
+    </ul>
+
+    <!-- Şube detayları -->
+    <div class="row g-3">
+        <div class="col-lg-5">
+            <div id="branchDetail" class="branch-detail">
+                <div class="bd-header">
+                    <div class="bd-header-icon">
+                        <i class="bi bi-geo-alt-fill"></i>
+                    </div>
+                    <div>
+                        <h5 id="dName" class="bd-title mb-1"></h5>
+                        <small class="bd-sub">Şube bilgileri</small>
+                    </div>
+                </div>
+
+                <ul class="bd-list">
+                    <li>
+                        <i class="bi bi-geo-alt"></i>
+                        <span id="dAddress"></span>
+                    </li>
+                    <li>
+                        <i class="bi bi-telephone"></i>
+                        <span id="dPhone"></span>
+                    </li>
+                    <li>
+                        <i class="bi bi-envelope"></i>
+                        <span id="dEmail"></span>
+                    </li>
+                </ul>
+
+                @if (Model.Branches?.Any() == true)
+                {
+                    <div class="bd-qr">
+                        <h6 class="bd-qr-title">Salon Konum QR Kodu</h6>
+
+                        <img id="branchQr"
+                             class="bd-qr-image"
+                             src="@Url.Action("LocationQr", "Contact", new { branchId = Model.Branches.First().Id })"
+                             data-base-url="@Url.Action("LocationQr", "Contact")"
+                             alt="Şube Konum QR Kodu" />
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="ratio ratio-16x9">
+                <iframe id="branchMap"
+                        src=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        style="border:0;border-radius:12px;">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" asp-append-version="true"></script>
+    <script src="~/js/WebSite/Contact/ContactPage.js"></script>
+}

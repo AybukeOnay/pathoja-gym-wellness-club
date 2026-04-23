@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MainWebSiteLayout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/WebSite/Profile/ProfilePage.css" />
+}
+
+
+<div class="container profile-wrap">
+    <div class="row g-4">
+        <!-- SOL MENÜ -->
+        <aside class="col-12 col-lg-3">
+            <div class="profile-card p-3 profile-sidebar">
+                <div class="d-flex align-items-center gap-3 p-2 mb-2">
+                    <img src="@(Model?.AvatarUrl ?? "/images/default-avatar.png")" class="avatar-lg" alt="avatar">
+                    <div>
+                        <div class="fw-bold">@User.Identity?.Name</div>
+                        <div class="small text-muted">
+                            @if (User.IsInRole("Teacher"))
+                            {
+                                <span class="badge badge-soft">Eğitmen</span>
+                            }
+                            else if (User.IsInRole("Member"))
+                            {
+                                <span class="badge badge-soft">Üye</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="nav nav-pills flex-column nav-vertical" id="profileTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#tab-overview" role="tab">
+                            <i class="fa-solid fa-house"></i> Genel Bakış
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#tab-info" role="tab">
+                            <i class="fa-solid fa-id-card"></i> Kişisel Bilgiler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#tab-password" role="tab">
+                            <i class="fa-solid fa-key"></i> Şifre Değiştir
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#tab-membership" role="tab">
+                            <i class="fa-solid fa-dumbbell"></i> Üyelik/Paketler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#tab-bookings" role="tab">
+                            <i class="fa-solid fa-calendar-check"></i> Bana Özel Kampanyalar
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#tab-avatar" role="tab">
+                            <i class="fa-solid fa-image"></i> Profil Fotoğrafı
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <form asp-controller="Login" asp-action="Logout" method="post" class="m-0">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="nav-link w-100 text-start nav-logout">
+                                <i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- SAĞ İÇERİK -->
+        <section class="col-12 col-lg-9">
+            <div class="profile-card p-3 p-md-4">
+                <div class="tab-content">
+
+                    <!-- GENEL BAKIŞ -->
+                    <div class="tab-pane fade show active" id="tab-overview" role="tabpanel">
+                        <div class="section-title">Genel Bakış</div>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <div class="p-3 rounded border">
+                                    <div class="fw-bold mb-1">Aktif Paket</div>
+                                    <div class="text-muted small mb-2">Pilatese Başlangıç (8 Seans)</div>
+                                    <div class="small">Kalan Seans: <b>5</b></div>
+                                    <div class="small">Bitiş: <b>15/12/2025</b></div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="p-3 rounded border">
+                                    <div class="fw-bold mb-1">Son Randevu</div>
+                                    <div class="small">Tarih: <b>28/10/2025 18:00</b></div>
+                                    <div class="small">Eğitmen: <b>Ayşe K.</b></div>
+                                    <div class="mt-2">
+                                        <a asp-controller="Booking" asp-action="Create" class="btn btn-sm btn-brand">Yeni Randevu Al</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KİŞİSEL BİLGİLER -->
+                    <div class="tab-pane fade" id="tab-info" role="tabpanel">
+                        <div class="section-title">Kişisel Bilgiler</div>
+                        <form asp-action="UpdateInfo" method="post" class="row g-3">
+                            @Html.AntiForgeryToken()
+                            <div class="col-md-6">
+                                <label class="form-label">Ad</label>
+                                <input name="Name" class="form-control" value="" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Soyad</label>
+                                <input name="LastName" class="form-control" value="" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">E-posta</label>
+                                <input name="Mail" class="form-control" value="" readonly />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Telefon</label>
+                                <input name="PhoneNumber" class="form-control" value="" />
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-brand">Kaydet</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ŞİFRE -->
+                    <div class="tab-pane fade" id="tab-password" role="tabpanel">
+                        <div class="section-title">Şifre Değiştir</div>
+                        <form asp-action="ChangePassword" method="post" class="row g-3">
+                            @Html.AntiForgeryToken()
+                            <div class="col-md-6">
+                                <label class="form-label">Mevcut Şifre</label>
+                                <input name="CurrentPassword" type="password" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Yeni Şifre</label>
+                                <input name="NewPassword" type="password" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Yeni Şifre (Tekrar)</label>
+                                <input name="ConfirmNewPassword" type="password" class="form-control" />
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-brand">Şifreyi Güncelle</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ÜYELİK/PAKETLER -->
+                    <div class="tab-pane fade" id="tab-membership" role="tabpanel">
+                        <div class="section-title">Üyelik & Paketler</div>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr><th>Paket</th><th>Durum</th><th>Kalan Seans</th><th>Bitiş</th><th></th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Pilatese Başlangıç (8)</td>
+                                        <td><span class="badge bg-success">Aktif</span></td>
+                                        <td>5</td>
+                                        <td>15/12/2025</td>
+                                        <td><a class="btn btn-sm btn-outline-secondary">Detay</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <a asp-controller="Packages" asp-action="Index" class="btn btn-brand">Yeni Paket Satın Al</a>
+                    </div>
+
+                    <!-- RANDEVULAR -->
+                    @* <div class="tab-pane fade" id="tab-bookings" role="tabpanel">
+                        <div class="section-title">Randevularım</div>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr><th>Tarih</th><th>Saat</th><th>Eğitmen</th><th>Durum</th><th></th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>28/10/2025</td>
+                                        <td>18:00</td>
+                                        <td>Ayşe K.</td>
+                                        <td><span class="badge bg-warning text-dark">Onay Bekliyor</span></td>
+                                        <td class="text-nowrap">
+                                            <a class="btn btn-sm btn-outline-secondary">Detay</a>
+                                            <a class="btn btn-sm btn-outline-danger">İptal</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <a asp-controller="Booking" asp-action="Create" class="btn btn-brand">Yeni Randevu Al</a>
+                    </div> *@
+
+                    <!-- AVATAR -->
+                    <div class="tab-pane fade" id="tab-avatar" role="tabpanel">
+                        <div class="section-title">Profil Fotoğrafı</div>
+                        <form asp-action="UploadAvatar" method="post" enctype="multipart/form-data" class="row g-3">
+                            @Html.AntiForgeryToken()
+                            <div class="col-12 col-md-6">
+                                <input type="file" name="File" accept="image/*" class="form-control">
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-brand">Yükle</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/WebSite/Profile/Profile.js"></script>
+}

@@ -1,0 +1,273 @@
+.signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px); /* navbar + footer dýþýnda kalan alan */
+    /*background: linear-gradient(135deg, #f7e2d4, #fbd6c8);*/
+    padding: 20px;
+}
+
+.signup-container {
+    display: flex;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    max-width: 900px;
+    width: 100%;
+}
+
+.signup-left {
+    flex: 1;
+    padding: 40px;
+}
+
+.signup-left h2 {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #c04f2d;
+}
+
+.signup-left .form-group {
+    margin-bottom: 15px;
+}
+
+.signup-left .form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.signup-left .form-control:focus {
+    border-color: #c04f2d;
+    outline: none;
+    box-shadow: 0 0 4px rgba(192,79,45,0.5);
+}
+
+.btn-signup {
+    width: 100%;
+    padding: 12px;
+    background-color: #c04f2d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-signup:hover {
+    background-color: #a63f22;
+}
+
+.signup-text {
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+.signup-text a {
+    color: #c04f2d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
+.signup-left label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #000; /* daha okunur */
+}
+
+.signup-left .form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    padding-right: 40px;
+    margin-bottom: 15px; /* label-input arasý mesafe */
+}
+
+.signup-left .form-control:focus {
+    border-color: #c04f2d;
+    box-shadow: 0 0 4px rgba(192,79,45,0.5);
+}
+
+/*.password-wrapper input {
+    padding-right: 40px;*/ /* ikon kadar sað boþluk */
+/*}*/
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper .form-control {
+    padding-right: 40px; /* ikona yer aç */
+    /*height: 44px;*/ /* sabit yükseklik: ikon ortalansýn */
+    /*line-height: 44px;*/ /* yazýyý ortala */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 35px;
+    top: 50%;
+    /*transform: translateY(-50%);*/
+    cursor: pointer;
+    display: none; /* Baþlangýçta gizli */
+    color: #888;
+    /*z-index: 2;*/
+}
+
+.toggle-password i {
+    font-size: 16px;
+}
+
+/* Sað taraf görsel */
+.signup-right {
+    flex: 1;
+    background: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('/images/girisYap.png') no-repeat center center;
+    background-size: cover;
+}
+
+.signup-right img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0 15px 15px 0;
+}
+
+/******LOGIN TARAFI******/
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px); /* navbar + footer dýþýnda kalan alan */
+    /*background: linear-gradient(135deg, #f7e2d4, #fbd6c8);*/
+    padding: 20px;
+}
+
+.forgot-password-link {
+    color: #c24b27; /* senin tema rengine uygun */
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+}
+
+.form-check-input:checked {
+    background-color: #c24b27;
+    border-color: #c24b27;
+}
+
+
+
+/*=========== MOBÝL ================*/
+@media (max-width: 992px) {
+    .signup-page,
+    .login-page {
+        min-height: auto;
+        padding: 24px 14px;
+        align-items: flex-start;
+    }
+
+    .signup-container {
+        flex-direction: column;
+        max-width: 560px;
+        border-radius: 18px;
+    }
+
+    .signup-left {
+        width: 100%;
+        padding: 28px 22px;
+    }
+
+    .signup-right {
+        display: none;
+    }
+
+    .signup-left h2 {
+        font-size: 2rem;
+        margin-bottom: 18px;
+    }
+
+    .signup-left label {
+        font-size: 15px;
+        margin-bottom: 6px;
+    }
+
+    .signup-left .form-control {
+        font-size: 16px; /* iPhone zoom engeli */
+        padding: 14px 16px;
+        padding-right: 44px;
+        margin-bottom: 14px;
+    }
+
+    .btn-signup {
+        padding: 14px;
+        font-size: 1.05rem;
+        border-radius: 12px;
+    }
+
+    .signup-text {
+        font-size: 14px;
+        margin-top: 16px;
+    }
+
+    .toggle-password {
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+@media (max-width: 576px) {
+    .signup-page,
+    .login-page {
+        padding: 18px 10px;
+    }
+
+    .signup-container {
+        border-radius: 16px;
+    }
+
+    .signup-left {
+        padding: 22px 16px;
+    }
+
+    .signup-left h2 {
+        font-size: 1.8rem;
+    }
+
+    .signup-left .form-control {
+        border-radius: 12px;
+    }
+
+    .form-group.d-flex.justify-content-between.align-items-center {
+        display: flex !important;
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 10px;
+    }
+
+    .forgot-password-link {
+        font-size: 0.95rem;
+    }
+
+    .form-check-label {
+        font-size: 0.95rem;
+    }
+}

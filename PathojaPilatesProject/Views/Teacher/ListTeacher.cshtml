@@ -1,0 +1,154 @@
+﻿@model List<PathojaPilatesProject.Models.Teacher.TeacherCardVM>
+
+@{
+    ViewData["Title"] = "Eğitmenlerimiz";
+    Layout = "~/Views/Shared/_MainWebSiteLayout.cshtml";
+
+}
+
+@functions {
+    string GetInitials(string? fullName)
+    {
+        if (string.IsNullOrWhiteSpace(fullName)) return "PP";
+        var parts = fullName.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length == 1) return parts[0].Substring(0, 1).ToUpperInvariant();
+        return (parts[0].Substring(0, 1) + parts[^1].Substring(0, 1)).ToUpperInvariant();
+    }
+    }
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/WebSite/Teacher/TeacherListPage.css" asp-append-version="true" />
+}
+
+
+<section class="teacher-hero">
+    <div class="container">
+        <div class="teacher-hero-inner">
+            <div>
+                <h1 class="teacher-title">Eğitmenlerimiz</h1>
+                <p class="teacher-sub">
+                    Şubelerimize ve hizmet alanlarına göre uzmanlaşmış ekibimizle hedefinize uygun bir program planlayın.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="teacher-list">
+    <div class="container">
+        <div class="row g-4">
+            @foreach (var t in Model)
+            {
+                var modalId = $"teacherModal_{t.Id}";
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="teacher-card">
+                        <div class="teacher-card-body">
+
+                            <div class="teacher-avatar">
+                                @if (!string.IsNullOrWhiteSpace(t.ImageUrl) && !t.ImageUrl.Contains("default-teacher.png"))
+                                {
+                                    <img src="@t.ImageUrl" alt="@t.FullName" />
+                                }
+                                else
+                                {
+                                    <div class="teacher-avatar-fallback">
+                                        @GetInitials(t.FullName)
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="teacher-info">
+                                <div class="teacher-strip"></div>
+
+                                <div class="teacher-text">
+                                    <div class="teacher-name">@t.FullName</div>
+                                    <div class="teacher-meta">@t.Title</div>
+                                    <div class="teacher-area">@t.Area</div>
+
+                                    <div class="teacher-branch">@t.BranchLabel</div>
+                                </div>
+                            </div>
+
+                            <button class="btn teacher-detail-btn"
+                                    type="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#@modalId">
+                                Detay
+                                <span class="arrow">→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+@section Modals {
+    @foreach (var t in Model)
+    {
+        var modalId = $"teacherModal_{t.Id}";
+
+        <div class="modal fade" id="@modalId" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content teacher-modal">
+                    <div class="modal-header teacher-modal-header">
+                        <div class="teacher-modal-head">
+                            <div class="teacher-modal-name">@t.FullName</div>
+                            <div class="teacher-modal-sub">@t.Title • @t.BranchLabel</div>
+                        </div>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body teacher-modal-body">
+                        <div class="row g-4 align-items-start">
+                            <div class="col-12 col-md-5">
+                                <div class="teacher-modal-photo">
+                                    <img src="@t.ImageUrl" alt="@t.FullName" />
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-7">
+                                <div class="teacher-modal-section">
+                                    <div class="sec-title">Uzmanlık Alanı</div>
+                                    <div class="sec-value">@t.Area</div>
+                                </div>
+
+                                <div class="teacher-modal-section">
+                                    <div class="sec-title">Hakkında</div>
+                                    <p class="sec-p">@t.Bio</p>
+                                </div>
+
+                                @* @if (t.Tags?.Any() == true)
+                                {
+                                    <div class="teacher-modal-section">
+                                        <div class="sec-title">Öne Çıkanlar</div>
+                                        <div class="tag-row">
+                                            @foreach (var tag in t.Tags)
+                                            {
+                                                <span class="tag">@tag</span>
+                                            }
+                                        </div>
+                                    </div>
+                                } *@
+
+                               @*  <div class="teacher-modal-actions">
+                                    <button class="btn teacher-ghost" type="button" data-bs-dismiss="modal">Kapat</button>
+                                </div> *@
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+@section Scripts {
+    <script src="~/js/WebSite/Teacher/TeacherListPage.js" asp-append-version="true"></script>
+
+}

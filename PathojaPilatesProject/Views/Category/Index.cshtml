@@ -1,0 +1,313 @@
+﻿
+@model List<PathojaPilatesProject.Models.Category.CategoryCardVM>
+@using System
+@using PathojaPilatesProject.Models.Category
+@using BusinessLayer.DTOs.Branch
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MainWebSiteLayout.cshtml";
+
+    Func<string, string> HeroImg =
+       file => Url.Content("~/images/Hero_Section/" + file);
+
+    // URL helper: kategori + branchId
+    string Q(string cat = "", int? branchIdParam = null, bool clearBranch = false)
+        => Url.Action("Index", new
+        {
+            cat = string.IsNullOrEmpty(cat)
+                ? (string)(ViewBag.SelectedCategory ?? "all")
+                : cat,
+            branchId = clearBranch
+                ? (int?)null
+                : (branchIdParam ?? (int?)ViewBag.SelectedBranchId)
+        })!;
+
+    int? selectedBranchId = ViewBag.SelectedBranchId as int?;
+    var selectedCategory = (ViewBag.SelectedCategory as string) ?? "all";
+    var selectedParentSlug = (ViewBag.SelectedParentSlug as string) ?? "all";
+    var selectedParentName = (ViewBag.SelectedParentName as string) ?? "";
+
+    var parentFilters = ViewBag.ParentFilters as List<PathojaPilatesProject.Models.Category.CategoryChipVM>
+                        ?? new List<PathojaPilatesProject.Models.Category.CategoryChipVM>();
+
+    var visibleChildFilters = ViewBag.VisibleChildFilters as List<PathojaPilatesProject.Models.Category.CategoryChipVM>
+                              ?? new List<PathojaPilatesProject.Models.Category.CategoryChipVM>();
+    
+    var branches = ViewBag.Branches as List<BranchListDto> ?? new();
+
+    // Seçili şube DTO'su
+    BranchListDto? selectedBranchDto = null;
+    if (selectedBranchId.HasValue)
+    {
+        selectedBranchDto = branches.FirstOrDefault(b => b.Id == selectedBranchId.Value);
+    }
+
+    // Chip’te ve boş-result mesajında gösterilecek etiket
+    string rawBranchLabel = selectedBranchDto?.Name ?? "Tüm Şubeler";
+
+    string selectedBranchLabel = rawBranchLabel;
+
+    if (!string.IsNullOrWhiteSpace(rawBranchLabel) && rawBranchLabel != "Tüm Şubeler")
+    {
+        if (rawBranchLabel.Contains("Wellness", StringComparison.OrdinalIgnoreCase))
+        {
+            selectedBranchLabel = "Wellness";
+        }
+        else if (rawBranchLabel.Contains("Alacaatlı", StringComparison.OrdinalIgnoreCase) ||
+                 rawBranchLabel.Contains("Alacaatli", StringComparison.OrdinalIgnoreCase))
+        {
+            selectedBranchLabel = "Alacaatlı";
+        }
+        else if (rawBranchLabel.Contains("İncek", StringComparison.OrdinalIgnoreCase) ||
+                 rawBranchLabel.Contains("Incek", StringComparison.OrdinalIgnoreCase))
+        {
+            selectedBranchLabel = "İncek";
+        }
+    }
+}
+
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/WebSite/Category/CategoryPage.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/toast.css" asp-append-version="true" />
+}
+
+
+<!-- Chipler -->
+<div class="svc-header">
+    <div class="container">
+        <h1 class="svc-title">Hizmetlerimiz</h1>
+        <p class="svc-lead">
+            İhtiyacınıza uygun stüdyo ve eğitmenlerle hedeflerinize odaklanın.
+            Derslerimiz şubelere göre değişiklik gösterebilir.
+        </p>
+
+        <div class="svc-controls">
+
+            <div class="svc-filters">
+                <!-- Parent chipler -->
+                <div class="cats cats-parent">
+                    <a class="pill @(selectedCategory == "all" ? "active" : "")"
+                       href="@Q(cat:"all", clearBranch: true)">
+                        Tümü
+                    </a>
+
+                    @foreach (var f in parentFilters)
+                    {
+                        <a class="pill @(selectedParentSlug.Equals(f.Slug, StringComparison.OrdinalIgnoreCase) ? "active" : "")"
+                           href="@Q(cat:f.Slug)">
+                            <span>@f.Name</span>
+                            @if (f.HasChildren)
+                            {
+                                <span class="pill-arrow">▾</span>
+                            }
+                        </a>
+                    }
+                </div>
+
+                <!-- Child chipler -->
+                @if (visibleChildFilters.Any())
+                {
+                    <div class="cats cats-child">
+                       
+                        @foreach (var child in visibleChildFilters)
+                        {
+                            <a class="pill pill-child @(selectedCategory.Equals(child.Slug, StringComparison.OrdinalIgnoreCase) ? "active" : "")"
+                               href="@Q(cat:child.Slug)">
+                                @child.Name
+                            </a>
+                        }
+                    </div>
+                }
+            </div>
+
+            <button class="pill pill-branch"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#branchPanel"
+                    id="branchChip">
+                Şube:
+                <strong id="branchChipText">
+                    @selectedBranchLabel
+                </strong>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Offcanvas: Şube seçimi (SSR link) -->
+<div class="offcanvas offcanvas-end branch-panel" tabindex="-1" id="branchPanel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Şubenizi Seçin</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body">
+        <div class="list-group">
+            <!-- Tüm şubeler -->
+            <a class="list-group-item list-group-item-action @(selectedBranchId == null ? "active" : "")"
+               href="@Q(clearBranch: true)">
+                Tüm Şubeler
+            </a>
+
+            <!-- Dinamik şube listesi -->
+            @foreach (var br in branches)
+            {
+                var isActive = selectedBranchId == br.Id;
+
+                <a class="list-group-item list-group-item-action @(isActive ? "active" : "")"
+                   href="@Q(branchIdParam: br.Id)">
+                    @br.Name
+                </a>
+            }
+        </div>
+
+        <small class="text-muted d-block mt-3">
+            Seçtiğiniz şubeye göre mevcut hizmetler listelenir.
+        </small>
+    </div>
+</div>
+
+
+<div class="container">
+    <div id="svcGrid" class="svc-grid" aria-live="polite">
+        @if (Model == null || !Model.Any())
+        {
+            <div class="alert alert-light border">
+                Bu <strong>
+                    @selectedBranchLabel
+                </strong> şubeye ait hizmet bulunamamıştır
+            </div>
+        }
+        else
+        {
+            <input type="hidden" id="currentBranch"
+                   value="@(selectedBranchId?.ToString() ?? "all")" />
+            foreach (var svc in Model)
+            {
+                
+                <article class="card-svc @(svc.IsWide ? "wide" : "")">
+                    <div class="card-media">
+                        <img src="@svc.ImageUrl" alt="@svc.Title" />
+                        <span class="card-badge">@LabelOf(svc.CategorySlug)</span>
+
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">@svc.Title</h3>
+                        <p class="card-desc">@svc.Description</p>
+                        <a href="#" class="btn-brand btn-pkg-detail" data-service-id="@svc.Id" data-service-title="@svc.Title">Detay & Randevu</a>
+                    </div>
+                </article>
+            }
+        }
+    </div>
+</div>
+
+
+
+
+@functions {
+    private static string LabelOf(string slug) => slug switch
+    {
+        "pilates" => "Pilates",
+        "hamile" => "Hamile Pilates",
+        "crossfit" => "Crossfit",
+        "dans" => "Dans",
+        "fitness" => "Fitness",
+        "hyrox" => "Hyrox",
+        "padel" => "Padel Tenis",
+        "boks" => "Boks",
+        _ => "Hizmet"
+    };
+}
+@section Scripts {
+    <script src="~/js/WebSite/Category/CategoryPage.js" asp-append-version="true"></script>
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+}
+@section Modals {
+    <!-- Paket Detay & Randevu Modal -->
+    <div class="modal fade" id="pkgModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content pkg-modal">
+                <div class="modal-header border-0">
+                    <div>
+                        <h5 class="modal-title" id="pkgModalTitle">Paketler</h5>
+                        <p class="pkg-modal-sub" id="pkgModalSub">
+                            Size en uygun paketi seçin, biz sizi arayıp detayları anlatalım.
+                        </p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <!-- SOL: Paket listesi -->
+                        <div class="col-lg-7">
+                            <h6 class="pkg-section-title">Bu hizmet için paketler</h6>
+                            <div id="pkgList" class="pkg-list">
+                                <!-- JS ile doldurulacak -->
+                            </div>
+                            <div id="pkgEmpty" class="alert alert-light border d-none">
+                                Bu hizmet için tanımlı paket bulunamadı. Formu doldurarak bilgi talep edebilirsiniz.
+                            </div>
+                        </div>
+
+                        <!-- SAĞ: İletişim formu -->
+                        <div class="col-lg-5">
+                            <div class="pkg-lead-box">
+
+                                <div class="pkg-lead-loading d-none" id="pkgLeadLoading">
+                                    <div class="pkg-lead-loading-inner">
+                                        <div class="pkg-lead-spinner"></div>
+                                        <div class="pkg-lead-loading-text">Talebiniz gönderiliyor...</div>
+                                    </div>
+                                </div>
+
+                                <h6 class="pkg-section-title">Size ulaşalım</h6>
+                                <p class="pkg-lead-text">
+                                    İletişim bilgilerinizi bırakın, en kısa sürede sizi arayarak
+                                    paketler ve ders saatleri hakkında bilgi verelim.
+                                </p>
+
+                                <form id="pkgLeadForm">
+                                    <input type="hidden" id="leadCategoryId" name="CategoryId" />
+                                    <input type="hidden" id="leadProductId" name="ProductId" />
+                                    <input type="hidden" id="leadCategoryName" name="CategoryName" />
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Adınız Soyadınız* </label>
+                                        <input type="text" class="form-control" name="FullName" maxlength="100" required />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Telefon Numaranız *</label>
+                                        <input type="tel" class="form-control" name="Phone" required inputmode="numeric" maxlength="11" placeholder="(5xx) xxx xx xx" />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">E-posta Adresiniz *</label>
+                                        <input type="email" class="form-control" name="Email" required placeholder="ornek@mail.com" />
+                                    </div>
+
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" value="true" name="KvkkApproved" id="kvkkCheck" required>
+                                        <label class="form-check-label" for="kvkkCheck">
+                                            Kişisel verilerimin bilgilendirme amacıyla işlenmesini onaylıyorum.
+                                        </label>
+                                    </div>
+
+                                    <button type="submit" class="btn-brand w-100">
+                                        Bilgilendirme Talebi Oluştur
+                                    </button>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
