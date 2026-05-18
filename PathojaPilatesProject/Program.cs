@@ -11,6 +11,7 @@ using PathojaPilatesProject.ValidationRules.User;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using CoreLayer.Utilities.Mail;
 using PathojaPilatesProject.Services.Mail;
+using PathojaPilatesProject.ValidationRules.Contact;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +33,7 @@ builder.Services.AddControllersWithViews()
         fv.RegisterValidatorsFromAssemblyContaining<TeacherUpdateDtoValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<TeacherUpdateVMValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<SignUpVMValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<ContactPageVMValidator>();
         fv.DisableDataAnnotationsValidation = true; // ⚡ DataAnnotations ile çakışmayı engeller
     });
 

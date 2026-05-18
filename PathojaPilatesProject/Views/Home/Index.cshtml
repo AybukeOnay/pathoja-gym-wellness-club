@@ -1,4 +1,6 @@
-﻿@{
+﻿@model PathojaPilatesProject.Models.Home.HomePopupEventVM
+
+@{
     ViewData["Title"] = "Pathoja Pilates";
     Layout = "~/Views/Shared/_MainWebSiteLayout.cshtml";
 }
@@ -19,4 +21,7 @@
     @await Html.PartialAsync("PartialMemberTestimonials")
 }
 
-
+@if (Model != null)
+{
+    @await Html.PartialAsync("_HomePopupEvent", Model)
+}

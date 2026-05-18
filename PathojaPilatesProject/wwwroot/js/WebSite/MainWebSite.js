@@ -391,3 +391,45 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+//HOME POPUP
+document.addEventListener("DOMContentLoaded", function () {
+    const modalEl = document.getElementById("homePopupEventModal");
+
+    if (!modalEl) return;
+
+    // Modal parent stacking context içinde kalmasın diye body altına taşıyoruz
+    if (modalEl.parentElement !== document.body) {
+        document.body.appendChild(modalEl);
+    }
+
+    const today = new Date().toISOString().slice(0, 10);
+    const storageKey = "pathoja_home_popup_event_seen_date";
+
+    const lastSeenDate = localStorage.getItem(storageKey);
+
+    if (lastSeenDate === today) return;
+
+    const modal = new bootstrap.Modal(modalEl, {
+        backdrop: true,
+        keyboard: true,
+        focus: true
+    });
+
+    setTimeout(function () {
+        modal.show();
+    }, 300);
+
+    modalEl.addEventListener("hidden.bs.modal", function () {
+        localStorage.setItem(storageKey, today);
+
+        document.body.classList.remove("modal-open");
+        document.body.style.removeProperty("overflow");
+        document.body.style.removeProperty("padding-right");
+
+        document.querySelectorAll(".modal-backdrop").forEach(function (backdrop) {
+            backdrop.remove();
+        });
+    });
+});
+
+

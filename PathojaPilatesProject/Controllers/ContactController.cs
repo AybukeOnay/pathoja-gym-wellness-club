@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BusinessLayer.Abstract;
+using BusinessLayer.DTOs.Contact;
 using EntityLayer.Concrete;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using PathojaPilatesProject.Models.Branch;
 using PathojaPilatesProject.Models.Contact;
@@ -12,11 +14,15 @@ namespace PathojaPilatesProject.Controllers
     {
         private readonly IBranchService _branchService;
         private readonly IMapper _mapper;
+        private readonly IContactService _contactService;
+        private readonly IValidator<ContactPageVM> _contactPageValidator;
 
-        public ContactController(IBranchService branchService, IMapper mapper)
+        public ContactController(IBranchService branchService,IContactService contactService,IMapper mapper,IValidator<ContactPageVM> contactPageValidator)
         {
             _branchService = branchService;
+            _contactService = contactService;
             _mapper = mapper;
+            _contactPageValidator = contactPageValidator;
         }
 
         public async Task<IActionResult> Index()
@@ -27,6 +33,56 @@ namespace PathojaPilatesProject.Controllers
                 Branches = _mapper.Map<List<BranchListVM>>(branchList)
             };
             return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(ContactPageVM model)
+        {
+            var validationResult = _contactPageValidator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                ModelState.Clear();
+
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                model.Branches = await GetBranchVMListAsync();
+
+                return View(model);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Branches = await GetBranchVMListAsync();
+                return View(model);
+            }
+
+            var dto = new ContactCreateDto
+            {
+                Type = ContactType.GeneralContact,
+                FullName = $"{model.FirstName} {model.LastName}".Trim(),
+                Email = model.Email!,
+                Phone = model.Phone!,
+                Subject = "İletişim Formu",
+                Message = model.Message,
+                KvkkApproved = true
+            };
+
+            await _contactService.CreateContactAsync(dto);
+
+            TempData["ContactSuccess"] = "Talebiniz alındı. En kısa sürede sizinle iletişime geçeceğiz.";
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        private async Task<List<BranchListVM>> GetBranchVMListAsync()
+        {
+            var branchList = await _branchService.GetActiveBranchesAsync();
+            return _mapper.Map<List<BranchListVM>>(branchList);
         }
 
         [HttpGet]

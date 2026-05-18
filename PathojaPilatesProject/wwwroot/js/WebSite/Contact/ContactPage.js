@@ -215,3 +215,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (firstActive) activateTab(firstActive);
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const phoneInput = document.querySelector("input[name='Phone']");
+
+    if (!phoneInput) return;
+
+    phoneInput.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "").slice(0, 10);
+    });
+
+    
+});
+
+// Contact form submit lock
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("contactForm");
+    const submitBtn = document.getElementById("contactSubmitBtn");
+    const overlay = document.getElementById("contactSubmitOverlay");
+
+    if (!form || !submitBtn) return;
+
+    let isSubmitting = false;
+
+    form.addEventListener("submit", function (e) {
+        if (isSubmitting) {
+            e.preventDefault();
+            return;
+        }
+
+        isSubmitting = true;
+
+        submitBtn.disabled = true;
+
+        const btnText = submitBtn.querySelector(".btn-text");
+        const btnLoading = submitBtn.querySelector(".btn-loading");
+
+        if (btnText) btnText.classList.add("d-none");
+        if (btnLoading) btnLoading.classList.remove("d-none");
+
+        if (overlay) {
+            overlay.classList.remove("d-none");
+        }
+    });
+});

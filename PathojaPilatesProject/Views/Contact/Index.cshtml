@@ -29,31 +29,59 @@
     <div class="contact-form">
         <h3 class="section-title text-center">Bize Ulaşın</h3>
 
-        <form id="contactForm">
+        <form id="contactForm" asp-controller="Contact" asp-action="Index" method="post" novalidate>
+            @Html.AntiForgeryToken()
+
             <div class="grid">
                 <div class="field">
-                    <label>Adınız</label>
-                    <input type="text" placeholder="Adınız">
+                    <label asp-for="FirstName">Adınız <span class="required-star">*</span></label>
+                    <input asp-for="FirstName" type="text" placeholder="Adınız">
+                    <span asp-validation-for="FirstName" class="form-error"></span>
                 </div>
+
                 <div class="field">
-                    <label>Soyadınız</label>
-                    <input type="text" placeholder="Soyadınız">
+                    <label asp-for="LastName">Soyadınız <span class="required-star">*</span></label>
+                    <input asp-for="LastName" type="text" placeholder="Soyadınız">
+                    <span asp-validation-for="LastName" class="form-error"></span>
                 </div>
+
                 <div class="field">
-                    <label>E-posta</label>
-                    <input type="email" placeholder="ornek@mail.com">
+                    <label asp-for="Email">Mail <span class="required-star">*</span></label>
+                    <input asp-for="Email" type="email" placeholder="ornek@mail.com">
+                    <span asp-validation-for="Email" class="form-error"></span>
                 </div>
+
                 <div class="field">
-                    <label>Telefon</label>
-                    <input type="tel" placeholder="(5xx) xxx xx xx">
+                    <label asp-for="Phone">Telefon <span class="required-star">*</span></label>
+                    <input asp-for="Phone"
+                           type="tel"
+                           placeholder="(5xx) xxx xx xx"
+                           maxlength="10"
+                           inputmode="numeric"
+                           autocomplete="tel">
+                    <span asp-validation-for="Phone" class="form-error"></span>
                 </div>
+
                 <div class="field field-full">
-                    <label>Mesajınız</label>
-                    <textarea placeholder="Kısaca bahsedin…"></textarea>
+                    <label asp-for="Message">Mesajınız <span class="required-star">*</span></label>
+                    <textarea asp-for="Message" placeholder="Kısaca bahsedin…"></textarea>
+                    <span asp-validation-for="Message" class="form-error"></span>
                 </div>
             </div>
 
-            <button type="submit" class="btn-theme">Gönder</button>
+            <button type="submit" class="btn-theme" id="contactSubmitBtn">
+                <span class="btn-text">Gönder</span>
+                <span class="btn-loading d-none">
+                    <i class="fa fa-spinner fa-spin"></i> Gönderiliyor...
+                </span>
+            </button>
+
+            <div class="contact-submit-overlay d-none" id="contactSubmitOverlay">
+                <div class="contact-submit-box">
+                    <i class="fa fa-spinner fa-spin"></i>
+                    <span>Talebiniz gönderiliyor, lütfen bekleyiniz...</span>
+                </div>
+            </div>
         </form>
     </div>
 
@@ -172,4 +200,14 @@
 @section Scripts {
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" asp-append-version="true"></script>
     <script src="~/js/WebSite/Contact/ContactPage.js"></script>
+
+    @if (TempData["ContactSuccess"] != null)
+    {
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                showToast("@TempData["ContactSuccess"]", "success");
+            });
+        </script>
+    }
 }
+
